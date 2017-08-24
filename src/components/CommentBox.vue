@@ -17,17 +17,10 @@
 <script>
   export default {
     name: 'comment-box',
-    data: () => ({
-      comments: [
-        {
-          text: 'foo'
-        },
-        {
-          text: 'bar'
-        }
-      ]
-    }),
     computed: {
+      comments () {
+        return this.$store.state.comment.all
+      },
       reversedComments () {
         return this.comments.slice().reverse()
       }
@@ -36,10 +29,13 @@
       submitComment () {
         let input = document.getElementById('commentForm')
         if (input.value !== '') {
-          this.comments.push({text: input.value})
+          this.$store.commit('addComment', {text: input.value})
           input.value = ''
         }
       }
+    },
+    created () {
+      this.$store.dispatch('loadComments')
     }
   }
 </script>
