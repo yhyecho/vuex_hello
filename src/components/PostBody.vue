@@ -1,12 +1,27 @@
 <template>
   <div class="post-body">
-    Post-Body
+    {{post.title}}
+
+    <div class="actions">
+      <div class="comment-no">
+        {{comments.length}} 评论
+      </div>
+      <div class="like-no" @click="like">
+        {{post.likes}} 赞
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
   export default {
-    name: 'post-body'
+    name: 'post-body',
+    props: ['post', 'comments'],
+    methods: {
+      like () {
+        this.$store.commit('like', this.post.id)
+      }
+    }
   }
 </script>
 
@@ -20,5 +35,18 @@
     text-align: center;
     color: rgba(0, 0, 0, 0.8);
     padding: 10px;
+    position: relative;
+  }
+  .actions {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    display: flex;
+  }
+  .like-no, .comment-no {
+    background-color: rgba(200, 200, 200, 0.5);
+    padding: 5px 10px;
+    margin-left: 5px;
+    cursor: pointer;
   }
 </style>

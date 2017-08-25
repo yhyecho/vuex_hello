@@ -15,3 +15,6 @@ new Vue({
   template: '<App/>',
   components: { App }
 })
+
+store.dispatch('loadPosts')
+store.dispatch('loadComments')
